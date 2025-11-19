@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+use Illuminate\Support\Facades\Log;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -63,6 +64,8 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
+        Log::info('User ' . $data['name'] . ' Register successfully.');
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

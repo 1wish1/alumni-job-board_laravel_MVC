@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Middleware;
+use Illuminate\Support\Facades\Log;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,6 @@ class RoleMiddleware
         if (!Auth::check() || Auth::user()->role !== $role) {
             abort(403, "Unauthorized");
         }
-
         return $next($request);
     }
 }

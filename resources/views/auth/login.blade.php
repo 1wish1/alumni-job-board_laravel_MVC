@@ -22,7 +22,7 @@
                 @error('email')
                 <div class="invalid-feedback d-block">{{ $message }}</div>
                 @enderror
-            </div>
+            </div>      
 
             <!-- Password -->
             <div class="mb-3">

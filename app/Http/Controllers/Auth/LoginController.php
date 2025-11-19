@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -36,5 +38,50 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
+    }
+
+    /**
+     * Log successful login.
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        Log::info('User logged in successfully', [
+            'user_id' => $user->id,
+            'name'    => $user->name,
+            'email'   => $user->email,
+            'ip'      => $request->ip(),
+        ]);
+    }
+
+    /**
+     * Log failed login attempt.
+     */
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        Log::warning('Failed login attempt', [
+            'email' => $request->email,
+            'ip'    => $request->ip(),
+        ]);
+
+        throw \Illuminate\Validation\ValidationException::withMessages([
+            $this->username() => [trans('auth.failed')],
+        ]);
+    }
+
+    /**
+     * Log logout.
+     */
+    public function logout(Request $request)
+    {
+        Log::info('User logged out', [
+            'user_id' => auth()->id(),
+            'ip'      => $request->ip(),
+        ]);
+
+        $this->guard()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }

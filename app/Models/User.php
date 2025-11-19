@@ -38,13 +38,11 @@ class User extends Authenticatable
 
     // Relationships
 
-    // Jobs posted by the user (admin)
     public function jobs()
     {
         return $this->hasMany(Job::class);
     }
 
-    // Applications submitted by the user (alumni)
     public function applications()
     {
         return $this->hasMany(Application::class);
