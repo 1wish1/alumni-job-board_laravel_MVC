@@ -17,6 +17,7 @@
                     <tr>
                         <th>Title</th>
                         <th>Company</th>
+                        <th>Description</th>
                         <th>Location</th>
                         <th>Type</th>
                         <th>Created At</th>
@@ -29,6 +30,7 @@
                         <tr>
                             <td>{{ $job->title }}</td>
                             <td>{{ $job->company_name }}</td>
+                            <td>{{ $job->description }}</td>
                             <td>{{ $job->location }}</td>
                             <td>{{ $job->job_type }}</td>
                             <td>{{ $job->created_at->format('M d, Y') }}</td>

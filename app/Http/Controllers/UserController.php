@@ -22,7 +22,7 @@ class UserController extends Controller
             'email' => 'required|email|max:150|unique:users,email,' . $user->id,
             'phone' => ['required', 'regex:/^09\d{9}$/'],
             'address' => 'required|string|max:255',
-            'course' => 'required|string|max:100',
+            'course' => 'required|string|   max:100',
             'graduation_year' => ['required', 'digits:4', 'integer', 'min:2000', 'max:' . date('Y')],
             'bio' => 'required|string'
         ], [
